@@ -1186,7 +1186,7 @@ function renderResult(d,containerId,slot){
     {l:'EPS-CAGR 5J',v:d.epsCagr!==null?nf(d.epsCagr*100,1,'%'):null,cls:''},
     {l:'52W-Position',v:d.pos52!==null?d.pos52+'%':null,cls:d.pos52!==null&&d.pos52<30?'g':d.pos52!==null&&d.pos52>80?'r':''},
     {l:de?'FCF je Aktie':'FCF per Share',v:d.fcfPerShare!==null?'$'+nf(d.fcfPerShare,2):null,cls:''},
-    {l:'RPO',v:d.rpo?fmtB(d.rpo)+(d.revenue?' ('+d.rpo&&d.revenue?(d.rpo/d.revenue).toFixed(1)+'× '+( de?'Umsatz':'Rev.'):'')+')':(fmtB(d.rpo)):null,cls:'w'},
+    {l:'RPO',v:(()=>{if(!d.rpo)return null;const base=fmtB(d.rpo);const ratio=d.revenue?(' ('+( d.rpo/d.revenue).toFixed(1)+'× '+(de?'Umsatz':'Rev.')+')'):'';return base+ratio;})(),cls:'w'},
     {l:de?'Fed Funds Rate':'Fed Funds Rate',v:d.fedRate!==null?d.fedRate.toFixed(2)+'%':null,cls:d.fedTrend==='falling'?'g':d.fedTrend==='rising'?'r':'w'},
   ].filter(x=>x.v!==null&&x.v!=='N/A');
 
