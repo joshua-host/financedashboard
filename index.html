@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Joshua Host · Analyseprogramm</title>
+<title>Joshua Host · Analyseprogramm v1.4</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <style>
 :root{--mono:'Courier New',Courier,monospace;--sans:'Segoe UI',system-ui,-apple-system,sans-serif;--radius:8px;--tr:0.18s ease;}
@@ -24,6 +24,42 @@ header{background:var(--sf);border-bottom:1px solid var(--bd);padding:0 1.5rem;d
 .hc{display:flex;gap:0.5rem;align-items:center;}
 .tbtn{background:var(--sf2);border:1px solid var(--bd);border-radius:20px;padding:0.26rem 0.75rem;font-size:0.74rem;font-family:var(--mono);color:var(--txm);cursor:pointer;transition:all var(--tr);}
 .tbtn:hover{border-color:var(--ac);color:var(--ac);}
+.version-badge{font-family:var(--mono);font-size:0.68rem;color:var(--txd);background:var(--sf2);border:1px solid var(--bd);border-radius:20px;padding:0.22rem 0.6rem;white-space:nowrap;}
+
+/* HAMBURGER */
+.hamburger{background:none;border:none;cursor:pointer;display:flex;flex-direction:column;gap:5px;padding:6px;border-radius:6px;transition:background var(--tr);}
+.hamburger:hover{background:var(--sf2);}
+.hamburger span{display:block;width:20px;height:2px;background:var(--txm);border-radius:2px;transition:all var(--tr);}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.hamburger.open span:nth-child(2){opacity:0;}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
+/* SIDEBAR */
+#sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:150;}
+#sidebar-overlay.on{display:block;}
+#sidebar{position:fixed;top:0;left:-320px;width:300px;height:100vh;background:var(--sf);border-right:1px solid var(--bd);z-index:160;transition:left 0.25s ease;box-shadow:var(--sh);display:flex;flex-direction:column;}
+#sidebar.open{left:0;}
+.sidebar-header{padding:1.2rem 1.5rem;border-bottom:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between;}
+.sidebar-logo{font-family:var(--mono);font-size:0.88rem;font-weight:700;color:var(--ac);}
+.sidebar-close{background:none;border:none;cursor:pointer;font-size:1.2rem;color:var(--txd);padding:0.2rem;transition:color var(--tr);}
+.sidebar-close:hover{color:var(--dg);}
+.sidebar-tabs{display:flex;border-bottom:1px solid var(--bd);}
+.sidebar-tab{flex:1;padding:0.75rem;text-align:center;font-size:0.83rem;font-weight:600;cursor:pointer;color:var(--txd);border-bottom:2px solid transparent;transition:all var(--tr);user-select:none;}
+.sidebar-tab:hover{color:var(--tx);}
+.sidebar-tab.active{color:var(--ac);border-bottom-color:var(--ac);}
+.sidebar-content{flex:1;overflow-y:auto;}
+.sidebar-panel{display:none;padding:1.5rem;}
+.sidebar-panel.active{display:block;}
+
+/* IMPRESSUM */
+.impressum-section{margin-bottom:1.5rem;}
+.impressum-title{font-family:var(--mono);font-size:0.72rem;color:var(--txd);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:0.6rem;padding-bottom:0.4rem;border-bottom:1px solid var(--bd);}
+.impressum-row{display:flex;flex-direction:column;gap:0.15rem;margin-bottom:0.5rem;}
+.impressum-label{font-family:var(--mono);font-size:0.68rem;color:var(--txd);text-transform:uppercase;letter-spacing:0.08em;}
+.impressum-val{font-size:0.85rem;color:var(--tx);}
+.impressum-val a{color:var(--ac2);text-decoration:none;}
+.impressum-val a:hover{text-decoration:underline;}
+.impressum-disclaimer{font-family:var(--mono);font-size:0.72rem;color:var(--txd);line-height:1.6;background:var(--sf2);border:1px solid var(--bd);border-radius:6px;padding:0.75rem 1rem;margin-top:1rem;}
 
 /* TABBAR */
 .tabbar{display:flex;background:var(--tabbg);border-bottom:1px solid var(--bd);padding:0 1.5rem;align-items:center;justify-content:space-between;}
@@ -213,6 +249,9 @@ tr.sumrow td{background:var(--sf2);font-weight:700;border-top:2px solid var(--bd
 <body>
 
 <header>
+  <button class="hamburger" id="hamburger-btn" onclick="toggleSidebar()" aria-label="Menü">
+    <span></span><span></span><span></span>
+  </button>
   <div class="logo">Joshua Host<span> · Analyseprogramm</span></div>
   <div class="header-mid">
     <div class="call-bar-wrap">
@@ -223,8 +262,78 @@ tr.sumrow td{background:var(--sf2);font-weight:700;border-top:2px solid var(--bd
   <div class="hc">
     <button class="tbtn" id="lang-btn" onclick="toggleLang()">EN</button>
     <button class="tbtn" id="theme-btn" onclick="toggleTheme()">☀ LIGHT</button>
+    <span class="version-badge">v1.4</span>
   </div>
 </header>
+
+<!-- SIDEBAR OVERLAY -->
+<div id="sidebar-overlay" onclick="closeSidebar()"></div>
+
+<!-- SIDEBAR -->
+<div id="sidebar">
+  <div class="sidebar-header">
+    <div class="sidebar-logo">Joshua Host · AP</div>
+    <button class="sidebar-close" onclick="closeSidebar()">✕</button>
+  </div>
+  <div class="sidebar-tabs">
+    <div class="sidebar-tab active" id="stab-analyse" onclick="switchSidebarTab('analyse')">Analyse</div>
+    <div class="sidebar-tab" id="stab-impressum" onclick="switchSidebarTab('impressum')">Impressum</div>
+  </div>
+  <div class="sidebar-content">
+    <div class="sidebar-panel active" id="spanel-analyse">
+      <div style="font-family:var(--mono);font-size:0.78rem;color:var(--txm);line-height:1.8;">
+        <div style="color:var(--ac);font-weight:700;margin-bottom:0.75rem;">Analyse-Dashboard v1.4</div>
+        <div>📈 Aktienanalyse (US-Ticker)</div>
+        <div>₿ Krypto-Analyse (BTC, ETH ...)</div>
+        <div>⇄ Vergleichsmodus</div>
+        <div>★ Favoriten</div>
+        <div>🏦 Fed-Zinsen (FRED API)</div>
+        <div>⬇ PDF-Export</div>
+        <div style="margin-top:1rem;padding-top:1rem;border-top:1px solid var(--bd);font-size:0.7rem;color:var(--txd);">
+          APIs: Finnhub · FRED · CoinGecko<br>
+          Keine Anlageberatung.<br>
+          Nur zu Informationszwecken.
+        </div>
+      </div>
+    </div>
+    <div class="sidebar-panel" id="spanel-impressum">
+      <div class="impressum-section">
+        <div class="impressum-title">Angaben gemäß § 5 TMG</div>
+        <div class="impressum-row">
+          <span class="impressum-label">Name</span>
+          <span class="impressum-val">Joshua Host</span>
+        </div>
+        <div class="impressum-row">
+          <span class="impressum-label">Adresse</span>
+          <span class="impressum-val">Bultriethe 4<br>31582 Nienburg</span>
+        </div>
+      </div>
+      <div class="impressum-section">
+        <div class="impressum-title">Kontakt</div>
+        <div class="impressum-row">
+          <span class="impressum-label">E-Mail</span>
+          <span class="impressum-val"><a href="mailto:joshua.host@gmx.de">joshua.host@gmx.de</a></span>
+        </div>
+        <div class="impressum-row">
+          <span class="impressum-label">Telefon</span>
+          <span class="impressum-val"><a href="tel:+4915120762457">+49 151 20762457</a></span>
+        </div>
+      </div>
+      <div class="impressum-section">
+        <div class="impressum-title">Haftungsausschluss</div>
+        <div class="impressum-disclaimer">
+          Dieses Dashboard dient ausschließlich zu privaten Informationszwecken und stellt keine Anlageberatung dar. Alle Daten stammen von Drittanbietern (Finnhub, FRED, CoinGecko) und werden ohne Gewähr bereitgestellt. Investitionsentscheidungen sollten auf eigener Recherche und professioneller Beratung basieren.
+        </div>
+      </div>
+      <div class="impressum-section">
+        <div class="impressum-title">Datenschutz</div>
+        <div class="impressum-disclaimer">
+          Diese Website speichert keine personenbezogenen Daten auf einem Server. Favoriten und Einstellungen werden ausschließlich lokal im Browser (localStorage) gespeichert und verlassen das Gerät nicht.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <div class="tabbar">
   <div class="tabs">
@@ -299,6 +408,31 @@ let recentTickers = JSON.parse(localStorage.getItem('fa_recent')||'[]');
 let acTimers = {};
 
 // ════════════════════════════════════════════════
+// SIDEBAR / HAMBURGER
+// ════════════════════════════════════════════════
+function toggleSidebar(){
+  const sb=document.getElementById('sidebar');
+  const ov=document.getElementById('sidebar-overlay');
+  const btn=document.getElementById('hamburger-btn');
+  const open=sb.classList.toggle('open');
+  ov.classList.toggle('on',open);
+  btn.classList.toggle('open',open);
+  document.body.style.overflow=open?'hidden':'';
+}
+function closeSidebar(){
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('sidebar-overlay').classList.remove('on');
+  document.getElementById('hamburger-btn').classList.remove('open');
+  document.body.style.overflow='';
+}
+function switchSidebarTab(name){
+  ['analyse','impressum'].forEach(t=>{
+    document.getElementById('stab-'+t).classList.toggle('active',t===name);
+    document.getElementById('spanel-'+t).classList.toggle('active',t===name);
+  });
+}
+
+// ════════════════════════════════════════════════
 // CALL COUNTER (60/min)
 // ════════════════════════════════════════════════
 let callCount=0, callResetTimer=null;
@@ -339,6 +473,8 @@ function toggleLang(){
   document.getElementById('orient-sub').textContent=lang==='de'?'Für den Vergleich zweier Unternehmen ist das Querformat ideal. Bitte drehen Sie Ihr Gerät oder fahren Sie trotzdem fort.':'Landscape mode is ideal for comparing two companies. Please rotate your device or proceed anyway.';
   document.getElementById('orient-proceed').textContent=lang==='de'?'Trotzdem fortfahren':'Proceed anyway';
   document.getElementById('orient-cancel').textContent=lang==='de'?'Abbrechen':'Cancel';
+  document.getElementById('stab-analyse').textContent=lang==='de'?'Analyse':'Analysis';
+  document.getElementById('stab-impressum').textContent=lang==='de'?'Impressum':'Legal Notice';
 }
 
 // ════════════════════════════════════════════════
