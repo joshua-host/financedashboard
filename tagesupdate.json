@@ -1,0 +1,26 @@
+{
+  "generated_at": "2026-09-16T08:48:38.440680+00:00",
+  "text": "Am 16. September 2026 steht die nächste Fed-Zinsentscheidung an. Der aktuelle Leitzins liegt bei 3.63 Prozent. Keine Earnings-Termine in den nächsten 7 Tagen bei deinen beobachteten Aktien. Deine bestehenden Positionen: ServiceNow: Kursdaten nicht verfügbar. Oracle: Kursdaten nicht verfügbar. Nvidia: 212.17 Dollar, plus 0.6 Prozent heute. AppLovin: Kursdaten nicht verfügbar. Deine Watchlist mit Kurszielen: Astera Labs: Kursdaten nicht verfügbar. Micron Technology: Kursdaten nicht verfügbar. Microsoft: aktuell 497.12 Dollar, noch kein Kursziel hinterlegt. Meta Platforms: aktuell 670.24 Dollar, noch kein Kursziel hinterlegt. Alphabet: aktuell 344.98 Dollar, noch kein Kursziel hinterlegt.",
+  "lines": [
+    "Am 16. September 2026 steht die nächste Fed-Zinsentscheidung an. Der aktuelle Leitzins liegt bei 3.63 Prozent.",
+    "Keine Earnings-Termine in den nächsten 7 Tagen bei deinen beobachteten Aktien.",
+    "Deine bestehenden Positionen:",
+    "ServiceNow: Kursdaten nicht verfügbar.",
+    "Oracle: Kursdaten nicht verfügbar.",
+    "Nvidia: 212.17 Dollar, plus 0.6 Prozent heute.",
+    "AppLovin: Kursdaten nicht verfügbar.",
+    "Deine Watchlist mit Kurszielen:",
+    "Astera Labs: Kursdaten nicht verfügbar.",
+    "Micron Technology: Kursdaten nicht verfügbar.",
+    "Microsoft: aktuell 497.12 Dollar, noch kein Kursziel hinterlegt.",
+    "Meta Platforms: aktuell 670.24 Dollar, noch kein Kursziel hinterlegt.",
+    "Alphabet: aktuell 344.98 Dollar, noch kein Kursziel hinterlegt."
+  ],
+  "errors": [
+    "NOW: Kursabfrage fehlgeschlagen: 402 Client Error: Payment Required for url: https://financialmodelingprep.com/stable/quote?symbol=NOW&apikey=6LkidA9ADNYw7pD8EhZQMjh818RlOa6a",
+    "ORCL: Kursabfrage fehlgeschlagen: 402 Client Error: Payment Required for url: https://financialmodelingprep.com/stable/quote?symbol=ORCL&apikey=6LkidA9ADNYw7pD8EhZQMjh818RlOa6a",
+    "APP: Kursabfrage fehlgeschlagen: 402 Client Error: Payment Required for url: https://financialmodelingprep.com/stable/quote?symbol=APP&apikey=6LkidA9ADNYw7pD8EhZQMjh818RlOa6a",
+    "ALAB: Kursabfrage fehlgeschlagen: 402 Client Error: Payment Required for url: https://financialmodelingprep.com/stable/quote?symbol=ALAB&apikey=6LkidA9ADNYw7pD8EhZQMjh818RlOa6a",
+    "MU: Kursabfrage fehlgeschlagen: 402 Client Error: Payment Required for url: https://financialmodelingprep.com/stable/quote?symbol=MU&apikey=6LkidA9ADNYw7pD8EhZQMjh818RlOa6a"
+  ]
+}
