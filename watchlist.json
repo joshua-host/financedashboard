@@ -1,0 +1,18 @@
+{
+  "invested": [
+    {"ticker": "NOW", "name": "ServiceNow"},
+    {"ticker": "ORCL", "name": "Oracle"},
+    {"ticker": "NVDA", "name": "Nvidia"},
+    {"ticker": "APP", "name": "AppLovin"}
+  ],
+  "watching": [
+    {"ticker": "ALAB", "name": "Astera Labs", "target_price": null, "trigger": "below"},
+    {"ticker": "MU", "name": "Micron Technology", "target_price": null, "trigger": "below"},
+    {"ticker": "MSFT", "name": "Microsoft", "target_price": null, "trigger": "below"},
+    {"ticker": "META", "name": "Meta Platforms", "target_price": null, "trigger": "below"},
+    {"ticker": "GOOGL", "name": "Alphabet", "target_price": null, "trigger": "below"}
+  ],
+  "move_threshold_percent": 10,
+  "earnings_lookahead_days": 7,
+  "fed_lookahead_days": 14
+}
